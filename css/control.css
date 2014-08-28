@@ -1,0 +1,204 @@
+*:focus {
+    outline: 0;
+}
+
+::-webkit-scrollbar-thumb:vertical { width:10px; height:10px; background-color: #666; }
+::-webkit-scrollbar { width:10px; height:5px; background: #000; margin-right:5px; }
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+html,body {
+	margin:0;
+	padding:0px;
+	background: #000;
+	color:#fff;
+	font-family: sans-serif;
+	position: relative;
+}
+html {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	min-height: 100%;
+	
+	font-family: 'PT Sans', sans-serif;
+
+	scrollbar-base-color: #000;
+	scrollbar-base-color: #666;
+	scrollbar-3dlight-color: #000;
+	scrollbar-highlight-color: #000;
+	scrollbar-track-color: #000;
+	scrollbar-arrow-color: #666;
+	scrollbar-shadow-color: #000;
+	scrollbar-dark-shadow-color: #000;
+}
+a {
+	color:inherit;
+}
+#controls {
+	position: absolute;
+	width:100%;
+	left:0;
+	right: 0;
+	bottom: 0;
+	height:60px;
+	background-color:rgba(0,0,0,0.8);
+	color:#fff;
+	text-align: center;
+}
+.fixed #controls {
+	position: fixed;
+}
+#controls > div {
+	margin: 5px auto;
+}
+#controls span {
+	min-width: 30px;
+	/*display: block;
+	float: left;*/
+	text-align: center;
+}
+#controls ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	
+	display: block;
+	height: 50px;
+}
+#controls ul#c1 {
+	width: 200px;
+}
+.touch #controls ul#c1 {
+	width: 250px;
+}
+#controls ul#c2 {
+	width: 80px;
+}
+#controls ul li {
+	float: left;
+}
+#controls ul li a {
+	color:#666;
+	text-decoration: none;
+	float: left;
+	display: block;
+	width:40px;
+	font-size: 22px;
+}
+.touch #controls ul li a {
+	width:50px;
+}
+#controls li.c2 a {
+	font-size: 18px;
+}
+.no-touch #controls ul li a:hover {
+	color:gold;
+}
+#controls ul#c1 li a i {
+	line-height: 36px;
+}
+#controls ul li a#play i.icon-play,
+#controls ul li a#play.play i.icon-pause {
+	display: inline-block;
+	font-size: 36px;
+	margin-left: -5px;
+}
+#controls ul li a#play.play i.icon-play,
+#controls ul li a#play i.icon-pause {
+	display: none;
+}
+#controls ul li a#play.play span.play,
+#controls ul li a#play span.pause{
+	display: none;
+}
+#controls ul li a#play span.play,
+#controls ul li a#play.play span.pause {
+	display: block;
+}
+#controls ul li a span {
+	display: block;
+	font-size: 9px;
+	text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+	color:#666;
+	visibility: hidden;
+}
+.touch #controls ul li a span {
+	visibility: visible;
+}
+.no-touch #controls ul li a:hover span {
+	color:gold;
+	visibility: visible;
+}
+#controls ul.colors {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#controls ul.colors li {
+	display: block;
+	width: 10px;
+	height: 10px;
+	margin:0 2px;
+	background-color: #fff;
+}
+#algorithms {
+	width:100%;
+	overflow: hidden;
+}
+#algorithms #left {
+	width:48%;
+	float: left;
+}
+#algorithms #right {
+	width:48%;
+	float:right;
+}
+#algorithms ul {
+	margin:0;
+	padding: 0;
+	list-style: none;
+}
+#algorithms ul li {
+	margin:1px 1px;
+	padding: 0;
+	color:#fff;
+	height:25px;
+	line-height: 25px;
+	border-bottom:1px solid #222;
+	padding-left:20px;
+}
+#algorithms ul li a {
+	display: block;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	text-decoration: none;
+}
+#algorithms ul li a:hover {
+	color:gold;
+}
+#algorithms ul li a span {
+	text-transform: uppercase;
+}

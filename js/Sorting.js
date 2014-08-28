@@ -45,7 +45,7 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 
 		}
 
-		this.removeAlgorithm=function(name) {
+		this.removeAlgorithm=function(name,callback) {
 			//console.log("REMOVE",name)
 			//console.log(algoviz)
 			sorting=sorting.filter(function(d){
@@ -54,18 +54,24 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 			algorithms_container
 				.selectAll("div.algorithm:not(#add)")
 					.filter(function(d){
+						console.log(d.name,d)
 						return d.name==name;
 					})
 					.transition()
 					.duration(1000)
 					.style("opacity",0)
 						.each("end",function(d){
-							self.detectScrollTop();
+							//self.detectScrollTop();
+							console.log("deleting",this)
+							d3.select(this).remove();
 							var l=algoviz[name].getItemsLength();
 							delete(algoviz[name]);
 							updateDistances(null,null,l);
+							if(callback) {
+								callback();
+							}
 						})
-						.remove();
+						
 			
 
 			//console.log(sorting,algoviz)
@@ -73,13 +79,13 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 			
 		}
 
-		this.addAlgorithm=function(fn,data,color,initial_condition,callback) {
+		this.addAlgorithm=function(fn,data,color,initial_condition,position,callback) {
 			
 			require(["algorithms/"+fn,"support"], function(algorithm,support) {
 				
 				sorting.push({
 					fn:fn,
-					name:fn+"_"+sorting.length,
+					name:fn+"_"+(new Date().getTime()),//sorting.length,
 					wiki:algorithm.wiki
 				});
 				if(!functions[fn]) {
@@ -92,8 +98,20 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 					.selectAll("div.algorithm:not(#add)")
 						.data(sorting);
 
-				var new_algorithms=algorithms.enter()
+				var new_algorithms=null;
+				if(position) {
+					//alert("right")
+					new_algorithms=algorithms.enter()
+							.append("div");//,(position===0)?"#algorithms div.right");
+				} else {
+					//alert("left")
+					new_algorithms=algorithms.enter()
 							.insert("div","div#add")
+							//.append("div");//,(position===0)?"#algorithms div.right");
+				}
+				
+
+				new_algorithms
 							.attr("class","algorithm")
 							.attr("id",function(d,i){
 								return d.name;
@@ -171,6 +189,7 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 							width:WIDTH,
 							height:HEIGHT,
 							size_factor:SIZE_FACTOR,
+							position:position,
 							steps:steps[d.name],
 							step:1,
 							items:items,
@@ -270,7 +289,7 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 				return;
 			//if(!allSorted()) {
 				running=1;
-				//console.log("start","setting running to",running)
+				console.log("start","setting running to",running)
 				d3.values(algoviz).forEach(function(a,i){
 					//console.log("starting",i,a.getName())
 					a.start();

@@ -3,11 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Control SORTING</title>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400' rel='stylesheet' type='text/css'>
 	<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>
 	<script>window.d3||document.write('<script src="web/js/vendors/d3/d3.min.js"><\/script>');</script>
+	<link rel="stylesheet" href="css/control.css">
+	<link rel="stylesheet" href="css/afun.css">
 </head>
 <body>
+	<div id="algorithms">
+		<div id="left">
+			<ul></ul>
+		</div>
+		<div id="right">
+			<ul></ul>
+		</div>
+	</div>
+	<div id="controls">
+		<div>
+			<ul id="c1">
+				<li class="c2">
+					<a href="#" id="fastback"><i class="icon-fast-backward"></i><span>unsorted</span></a>
+				</li>
+				<li>
+					<a href="#" id="back"><i class="icon-left-open"></i><span>backward</span></a>
+				</li>
+				<li>
+					<a href="#" id="play"><i class="icon-play"></i><i class="icon-pause"></i><span class="play">play</span><span class="pause">pause</span></a>
+				</li>
+				<li>
+					<a href="#" id="forward"><i class="icon-right-open"></i><span>forward</span></a>
+				</li>
+				<li class="c2">
+					<a href="#" id="fastforward"><i class="icon-fast-forward"></i><span>sorted</span></a>
+				</li>
+			</ul>
+		</div>
+	</div>
 	<script>
 
 		var sortingController={};
@@ -15,28 +48,141 @@
 		;(function(){
 
 			
-
-		
+			var algorithms=[
+				{
+					name:"Quick Sort",
+					file:"QuickSort3",
+					O:"O(n log n)",
+					active:true
+				},
+				{
+					name:"Quick Sort 3-way",
+					file:"QuickSort4",
+					O:"O(n log n)",
+					active:true
+				},
+				{
+					name:"Heap Sort",
+					file:"HeapSort",
+					O:"O(n log n)",
+					active:false
+				},
+				{
+					name:"Smooth Sort",
+					file:"SmoothSort",
+					O:"O(n log n)",
+					active:false
+				},
+				{
+					name:"Shell Sort",
+					file:"ShellSortShell",
+					O:"Shell, 1959",
+					active:false
+				},
+				{
+					name:"Shell Sort",
+					file:"ShellSortKnuth2",
+					O:"Knuth, 1973",
+					active:false
+				},
+				{
+					name:"Shell Sort",
+					file:"ShellSortCiura",
+					O:"Ciura, 2001",
+					active:false
+				},
+				{
+					name:"Merge Sort (in-place)",
+					file:"MergeSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Cycle Sort",
+					file:"CycleSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Selection Sort",
+					file:"SelectionSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Insertion Sort",
+					file:"InsertionSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Gnome Sort",
+					file:"GnomeSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Comb Sort",
+					file:"CombSort",
+					O:"&nbsp;",
+					active:false
+				},
+				{
+					name:"Bubble Sort",
+					file:"BubbleSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Cocktail Sort",
+					file:"CocktailSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"OddEven Sort",
+					file:"OddEvenSort",
+					O:"O(n&sup2;)",
+					active:false
+				},
+				{
+					name:"Radix Sort",
+					file:"RadixSort",
+					O:"Worst Case: O(kN)",
+					active:false
+				}
+			];
+			
 
 			function SortingController() {
 				
 				var socket;
+				var running=0;
 
 				var current={
 					left:"Quicksort3",
 					right:"HeapSort"
 				}
 
+				this.getStatus=function() {
+					console.log("getStatus",running);
+					return running;
+				}
+				this.setStatus=function(status) {
+					running=status;
+					console.log("setStatus",running);
+				}
 				function initSocket() {
-					socket = io.connect('http://localhost:8888');
-
+					//socket = io.connect('http://localhost:8080');
+					socket = io.connect('http://sortingcontrol-littleark.rhcloud.com:8000');
+					
 					socket.on("open",function(data){
 						console.log("open",data);
 						if(data.status=="connected") {
 							socket.emit("join","control-room");
 						}
 					});
-
+					
 					socket.on("close",function(data){
 						console.log("close",data)
 					});
@@ -59,7 +205,13 @@
 					})
 				}
 				initSocket();
-
+				
+				this.setCurrent=function(algo,position) {
+					current[position]=algo;
+				}
+				this.changeChart=function(position) {
+					socket.emit("control-chart",{action:"change",position:(position=="left")?0:1,algorithm:current[position]});
+				}
 				this.leftChart=function() {
 					socket.emit("control-chart",{action:"change",position:0,algorithm:current.left});
 				}
@@ -88,6 +240,100 @@
 			}
 
 			sortingController=new SortingController();
+
+			document.addEventListener('paused', function start(e) {
+				//var running=sorting.getStatus();
+				
+				d3.select("#controls #play").classed("play",running);
+				//sorting.pause();
+				sortingController.pauseChart();
+			});
+			d3.select("#controls #back")
+				.on("click",function(d,i){
+					d3.event.preventDefault();
+
+					sortingController.backwardChart();
+					sortingController.setStatus(false);
+					d3.select("#controls #play").classed("play",sortingController.getStatus());
+					
+					
+				});
+			d3.select("#controls #forward")
+				.on("click",function(d,i){
+					d3.event.preventDefault();
+
+					sortingController.forwardChart();
+					//var running=sorting.getStatus();
+					sortingController.setStatus(false);
+					d3.select("#controls #play").classed("play",sortingController.getStatus());
+					
+				});
+			d3.select("#controls #play")
+				.on("click",function(d,i){
+					d3.event.preventDefault();
+					//var running=sorting.getStatus();
+					var running=sortingController.getStatus();
+					
+					if(!running) {
+						sortingController.pauseChart();
+						sortingController.playChart();
+
+						sortingController.setStatus(true);
+							
+					} else {
+						sortingController.pauseChart();
+						sortingController.setStatus(false);
+					}
+					d3.select(this).classed("play",sortingController.getStatus());
+					
+				});
+
+			d3.select("#controls #fastback")
+				.on("click",function(d,i){
+					d3.event.preventDefault();
+
+					sortingController.fastbackChart();
+					//var running=sorting.getStatus();
+					sortingController.setStatus(false);
+					d3.select("#controls #play").classed("play",sortingController.getStatus());
+
+					
+					
+				});
+
+			d3.select("#controls #fastforward")
+				.on("click",function(d,i){
+					d3.event.preventDefault();
+
+					sortingController.fastforwardChart();
+					//var running=sorting.getStatus();
+					sortingController.setStatus(false);
+					d3.select("#controls #play").classed("play",sortingController.getStatus());
+					
+					
+				});
+
+			(["left","right"]).forEach(function(position){
+				d3.select("#algorithms #"+position+" ul")
+					.selectAll("li")
+					.data(algorithms)
+					.enter()
+					.append("li")
+						.append("a")
+						.attr("href","#")
+							.html(function(d){
+								return "<span>"+d.name+"</span>,&nbsp;"+d.O
+							})
+							.on("mousedown",function(d){
+								d3.event.preventDefault();
+								sortingController.setCurrent(d.file,position);
+								sortingController.changeChart(position)
+							});
+			})
+			
+
+
+
 
 		}());
 	</script>

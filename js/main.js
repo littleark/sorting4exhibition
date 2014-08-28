@@ -102,13 +102,13 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 			name:"Quick Sort 3-way",
 			file:"QuickSort4",
 			O:"O(n log n)",
-			active:true
+			active:false
 		},
 		{
 			name:"Heap Sort",
 			file:"HeapSort",
 			O:"O(n log n)",
-			active:false
+			active:true
 		},
 		{
 			name:"Smooth Sort",
@@ -498,30 +498,32 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 			
 		});
 
-	algorithms.forEach(function(d){
+	algorithms.forEach(function(d,i){
 		if(d.active) {
 			sorting.addAlgorithm(
 				d.file,
 				data[options.initial_condition][options.items],
 				options.color,
 				options.initial_condition,
+				i,
 				function callback(){d3.select("#header h1").classed("init",false);}
 			);
 		}
 	})
-
+	/*
 	d3.json("http://carlo.im/support/sorting/getPlus.php",function(d){
 		d3.selectAll(".fb").text(d.fb);
 		d3.selectAll(".twt").text(d.t+d.t2);
 		d3.selectAll(".gp").text(d.gp);		
 	})
-
+	*/
 	function SortingController() {
 				
 		var socket;
 
 		function initSocket() {
-			socket = io.connect('http://localhost:8888');
+			//socket = io.connect('http://localhost:8888');
+			socket = io.connect('http://sortingcontrol-littleark.rhcloud.com:8000');
 
 			socket.on("open",function(data){
 				console.log("open",data);
@@ -557,20 +559,19 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 					case "change":
 						console.log(status);
 						d3.select("#algorithms")
-							.selectAll("div.algorithm:not(#add)")
-							.filter(function(d,i){
-								return i==status.position
-							})
+							.selectAll("div.algorithm."+(status.position?"right":"left"))
 							.each(function(d){
-								sorting.removeAlgorithm(d.name);
-								setTimeout(function(){
+								alert(d.name)
+								sorting.removeAlgorithm(d.name,function(){
 									sorting.addAlgorithm(
 										status.algorithm,
 										data[options.initial_condition][options.items],
 										options.color,
-										options.initial_condition
+										options.initial_condition,
+										status.position
 									)
-								},1000)
+								});
+								
 								
 							})
 
@@ -581,6 +582,8 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 						var running=sorting.getStatus();
 			
 						d3.select("#controls #play").classed("play",!running);
+
+						
 						if(!running) {
 							sorting.pause();
 							sorting.start();
@@ -588,21 +591,24 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 							sorting.pause();
 						}
 						
+						
 					break;
 					case "pause":
 						var running=sorting.getStatus();
+
 						d3.select("#controls #play").classed("play",running);
 						sorting.pause();
 					break;
 					case "forward":
 						sorting.nextStep();
 						var running=sorting.getStatus();
-						
+
 						d3.select("#controls #play").classed("play",running);
 					break;
 					case "backward":
 						sorting.prevStep();
 						var running=sorting.getStatus();
+
 						d3.select("#controls #play").classed("play",running);
 					break;
 					case "fastback":
@@ -610,6 +616,7 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 							sorting.goTo(0);
 						});
 						var running=sorting.getStatus();
+
 						d3.select("#controls #play").classed("play",running);
 					break;
 					case "fastforward":
@@ -617,6 +624,7 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 							sorting.goTo(sorting.getSteps()-1);
 						});
 						var running=sorting.getStatus();
+
 						d3.select("#controls #play").classed("play",running);
 					default:
 						console.log(status);

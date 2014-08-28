@@ -97,6 +97,8 @@ define(["d3","./support","./DistanceChart"],function(d3,support,DistanceChart) {
 
 		var div=d3.select(container)
 					.attr("class","algorithm i"+items[0].length)
+					.classed("left",!!(!options.position))
+					.classed("right",!!options.position)
 					.style("width",WIDTH+"px")
 					.classed("hidden",!options.items_visible)
 					.append("div")
