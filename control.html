@@ -326,6 +326,8 @@
 							})
 							.on("mousedown",function(d){
 								d3.event.preventDefault();
+								sortingController.setStatus(false);
+								d3.select("#controls #play").classed("play",sortingController.getStatus());
 								sortingController.setCurrent(d.file,position);
 								sortingController.changeChart(position)
 							});

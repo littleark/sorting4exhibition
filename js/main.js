@@ -558,6 +558,10 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 				switch(status.action) {
 					case "change":
 						console.log(status);
+						sorting.pause();
+						var running=sorting.getStatus();
+						d3.select("#controls #play").classed("play",!running);
+						
 						d3.select("#algorithms")
 							.selectAll("div.algorithm."+(status.position?"right":"left"))
 							.each(function(d){
