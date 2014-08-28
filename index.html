@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<title>SORTING</title>
+	
+	<meta name="description" content="A visualization of the most famous Sorting Algorithms." >
+	<meta name="author" content="Carlo Zapponi"/>
+	<link rel="Shortcut Icon" href="/img/favicon.ico" type="image/x-icon" />
+
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/s.css">
+	<script data-main="js/main" src="js/require.js"></script>
+</head>
+<body class="fixed">
+	<div id="header">
+			<h1 class="init"><div id="logo"><span class="s1">&bull;</span><span class="s2">&bull;</span><span class="s3">&bull;</span></div>Sorting</h1>
+			<ul id="layout">
+				<li>
+					<a href="#" class="size" id="x1" rev="1" title="Change layout"><span>1x1</span></a>
+				</li>
+				<li>
+					<a href="#" class="size selected" id="x2" rev="2" title="Change layout"><span>2x2</span></a>
+				</li>
+				<li>
+					<a href="#" class="size" rev="3" id="x3" title="Change layout"><span>3x3</span></a>
+				</li>
+				<li class="sep"><span></span></li>
+				<li>
+					<a href="#" class="items selected" title="Show/Hide items"><i class="icon-dot-3"></i></a>
+				</li>
+				<li class="sep"><span></span></li>
+				<li>
+					<a href="#" class="share" title="Share SORTING"><i class="icon-share"></i></a>
+					<div id="social">
+						<a href="https://twitter.com/intent/tweet?hashtags=dataviz,algorithm&original_referer=http%3A%2F%2Fsorting.at&text=SORTING+-+A+visualization+of+the+most+famous+sorting+algorithms&url=http%3A%2F%2Fsorting.at%2F&via=littleark" target="_blank" title="Share on Twitter"><i class="icon-twitter"></i></a>
+						<span class="count twt"></span>
+						<a href="https://plus.google.com/share?url=sorting.at" target="_blank" title="Share on Google+"><i class="icon-gplus"></i></a>
+						<span class="count gp"></span>
+						<a href="http://facebook.com/sharer.php?u=http%3A%2F%2Fsorting.at" target="_blank" title="Share on Facebook"><i class="icon-facebook"></i></a>
+						<span class="count fb"></span>
+						<a href="http://pinterest.com/pin/create/button/?url=http%3A//sorting.at&media=http%3A//sorting.at/img/sorting.png&description=SORTING+-+A+visualization+of+the+most+famous+sorting+algorithms" target="_blank" title="Pin it!"><i class="icon-pinterest"></i></a>
+					</div>
+				</li>
+			</ul>
+
+
+	</div>
+	<div id="overlay">
+		<div id="howtoread">
+			<span style="left: 185px;top: 120px;" class="right">TRACE OF ITEM MOVED FORWARD&sup1;</span>
+			<span style="left: 257px;top: 295px;" class="left bottom">TRACE OF ITEM MOVED BACKWARD&sup1;</span>
+			<span style="left:522px;top:138px;" class="left">ITEM IN MEMORY</span>
+			<span style="left:87px;top:182px;" class="right">COMPARISON INDICATOR</span>
+			<span style="left: 104px;top: 458px;" class="left bottom">CURRENT OPERATION</span>
+			<span style="left:369px;top: 442px;" class="left bottom high">END / SEQUENCE SORTED</span>
+			<span style="left: 417px;top: 365px;" class="right">MAX NUMBER OF INVERSIONS</span>
+			<span style="left:51px;top: 393px;" class="left">STARTING NUMBER OF INVERSIONS</span>
+			<span style="left:0px;top: 520px;">&sup1;COLOR OF TRACE = COLOR OF MOVED ITEM</span>
+		</div>
+		<a href="#" class="close">close <span>X</span></a>
+	</div>
+	<div id="wrapper">
+		<div id="algorithms" class="clearfix">
+			<div id="add" class="algorithm">
+				<a href="#" class="plus" title="Add new algorithm">
+					<div>
+						<span>+</span>
+						<h4>Add new algorithm</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div id="active_margin"></div>
+		<div id="controls">
+			<div>
+				<ul id="c1">
+					<li class="c2">
+						<a href="#" id="fastback"><i class="icon-fast-backward"></i><span>unsorted</span></a>
+					</li>
+					<li>
+						<a href="#" id="back"><i class="icon-left-open"></i><span>backward</span></a>
+					</li>
+					<li>
+						<a href="#" id="play"><i class="icon-play"></i><i class="icon-pause"></i><span class="play">play</span><span class="pause">pause</span></a>
+					</li>
+					<li>
+						<a href="#" id="forward"><i class="icon-right-open"></i><span>forward</span></a>
+					</li>
+					<li class="c2">
+						<a href="#" id="fastforward"><i class="icon-fast-forward"></i><span>sorted</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="formContainer" class="collapsed">
+			
+			<div id="form">
+				<div>
+					<h5>Algorithm <span>(with average case performance)</span></h5>
+					<ul id="algs" class="clearfix"></ul>
+					<br/>
+					<h5>Color</h5>
+					<ul id="colors" class="clearfix">
+					</ul>
+					<h5>Size</h5>
+					<ul id="items" class="clearfix"></ul>
+					<h5>Initial Condition</h5>
+					<ul id="initial" class="clearfix">
+						<li><a href="#" rel="0" class="selected">Random</a></li>
+						<li><a href="#" rel="1">Nearly sorted</a></li>
+						<li><a href="#" rel="2">Reversed</a></li>
+						<li><a href="#" rel="3">Few unique</a></li>
+					</ul>
+					<a href="#" class="generate" title="Generate algorithm">
+						<span>+</span>
+						<h4>Visualize algorithm</h4>
+					</a>
+					<a href="#" class="close">close <span>X</span></a>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+
+			<h1 class="logo">
+				<div id="logo"><span class="s1">&bull;</span><span class="s2">&bull;</span><span class="s3">&bull;</span></div>
+				SORTING<br/>
+				<span><a href="http://www.makinguse.com" target="_blank" title="">Carlo Zapponi</a>, 2014</span>
+			</h1>
+			
+		</div>
+
+	</div>
+
+</body>
+</html>

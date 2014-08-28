@@ -1,0 +1,1299 @@
+*:focus {
+    outline: 0;
+}
+
+::-webkit-scrollbar-thumb:vertical { width:10px; height:10px; background-color: #666; }
+::-webkit-scrollbar { width:10px; height:5px; background: #000; margin-right:5px; }
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+html,body {
+	margin:0;
+	padding:0px;
+	background: #000;
+	color:#fff;
+	font-family: sans-serif;
+	position: relative;
+}
+html {
+	/*height: 100%;*/
+	overflow: hidden;
+}
+body {
+	min-height: 100%;
+	
+	font-family: 'PT Sans', sans-serif;
+
+	scrollbar-base-color: #000;
+	scrollbar-base-color: #666;
+	scrollbar-3dlight-color: #000;
+	scrollbar-highlight-color: #000;
+	scrollbar-track-color: #000;
+	scrollbar-arrow-color: #666;
+	scrollbar-shadow-color: #000;
+	scrollbar-dark-shadow-color: #000;
+}
+a {
+	color:inherit;
+}
+.no-touch a:hover {
+	color:gold;
+}
+#wrapper {
+	width: 100%;
+	margin:0 auto;/* 100px;*/
+	position: relative;
+}
+#header {
+	height: 25px;
+	z-index: 99;
+	position: relative;
+	text-align: center;
+	margin-top:15px;
+}
+#header h1 {
+	display: inline-block;
+	color:#fff;
+	font-family: 'Raleway', sans-serif;
+	font-size: 28px;
+	font-weight: 300;
+	line-height: 28px;
+	text-transform: uppercase;
+	text-align: left;
+	margin: 0 0 0 6px;
+	padding: 0;
+	text-rendering: optimizelegibility;
+	padding-left: 10px;
+}
+div#logo {
+	float: left;
+	position: relative;
+	width: 50px;
+	height: 30px;
+
+}
+div#logo span {
+	font-family: Arial,sans-serif;
+	position: absolute;
+	width:1px;
+	text-align: center;
+	height:1px;
+	overflow: visible;
+	line-height: 0px;
+	top:13px;
+	-webkit-transition: left 500ms;
+	-moz-transition: left 500ms;
+	-ms-transition: left 500ms;
+	-o-transition: left 500ms;
+	transition: left 500ms;
+}
+div#logo span.s1 {
+	font-size: 27px;
+	left: 5px;
+	margin-left: -10px;
+}
+div#logo span.s2 {
+	font-size: 46px;
+	left: 19px;
+	margin-left: -12px;
+	color: khaki
+}
+div#logo span.s3 {
+	font-size: 66px;
+	left: 39px;
+	margin-left: -16px;
+	color: gold;
+}
+
+.no-touch h1:hover div#logo span.s1,
+h1.init div#logo span.s1 {
+	left: 24px;
+}
+.no-touch h1:hover div#logo span.s2,
+h1.init div#logo span.s2 {
+	left: 39px;
+}
+.no-touch h1:hover div#logo span.s3,
+h1.init div#logo span.s3 {
+	left:5px;
+}
+
+/**************** CONTENTS *****************/
+#contents {
+	max-width: 800px;
+	margin: 50px auto 0;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	color: #aaa;
+}
+#contents h3 {
+	font-family: 'Raleway', sans-serif;
+	font-weight:300;
+	color:gold;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
+	text-rendering: optimizelegibility;
+}
+#contents p {
+	margin:5px 0 40px;
+	line-height: 20px;
+}
+#contents b {
+	color:white;
+	font-weight: inherit;
+}
+/**************** ALGORITHM ****************/
+#algorithms {
+	width:100%;
+	min-height: 2000px;
+}
+
+
+#algorithms div.algorithm {
+	width:100%;
+	/*height:400px;*/
+	/*border:1px solid #333;*/
+	position: relative;
+	float: left;
+	margin: 10px 5px;
+	border: 1px solid #000;
+	padding: 5px 0;
+}
+.no-touch #algorithms div.algorithm:hover {
+	border: 1px solid #666;
+}
+#algorithms.size1 div.algorithm {
+	width: 948px;
+	min-height: 358px;
+}
+#algorithms.size2 div.algorithm {
+	width: 468px;
+	min-height:378px;
+}
+#algorithms.size3 div.algorithm {
+	width: 308px;
+	min-height:298px;
+}
+#algorithms.size5 div.algorithm {
+	width: 20%;
+}
+#algorithms div.algorithm a.icon{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	text-align: right;
+	text-transform: uppercase;
+	font-size: 16px;
+	color: #666;
+	display: block;
+	width: 62px;
+	height: 20px;
+	text-decoration: none;
+	white-space: nowrap;
+	display: none;
+}
+.touch #algorithms div.algorithm a.icon {
+	display: none !important;
+}
+#algorithms div.algorithm a.icon span{
+	display: none;
+	font-size: 9px;
+	line-height: 10px;
+	margin-top: 6px;
+	float: left;
+}
+#algorithms div.algorithm a.icon:hover{
+	color:gold;
+	background-color: #000;
+}
+#algorithms div.algorithm:hover a.icon {
+	display: block;
+}
+#algorithms div.algorithm a.icon:hover span{
+	display: inline-block;
+}
+#algorithms div.algorithm a.icon.wiki {
+	top:30px;
+	right:6px;
+	width:67px;
+}
+#algorithms div.algorithm a.icon.help {
+	top: 54px;
+	right: 6px;
+	width: 78px;
+}
+#algorithms div.algorithm div.loading {
+	position: absolute;
+	z-index: 9999;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	background-color:rgba(0,0,0,0.75);
+}
+#algorithms div.algorithm h2 {
+	/*position: absolute;*/
+	bottom:10px;
+	left: 0px;
+	width: 100%;
+	text-align:center;
+	text-transform: uppercase;
+	color: #fff;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	font-size: 1.55em;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 20px;
+}
+#algorithms.size2 div.algorithm h2 {
+	font-size: 1.25em;
+}
+#algorithms.size3 div.algorithm h2 {
+	font-size: 1.1em;
+}
+#algorithms.size5 div.algorithm h2 {
+	font-size: 12px;
+}
+.no-touch #algorithms div.algorithm:hover h2 {
+	color: gold;
+}
+#algorithms div.algorithm h2 span {
+	display: block;
+	color:#ccc;
+	text-transform: none;
+	font-size: 0.75em;
+}
+.algorithm > div {
+	margin:0 auto;
+}
+
+/***************** ADD **********************/
+#algorithms div#add.algorithm {
+	display: none;
+}
+
+#algorithms div#add.algorithm {
+	font-family: 'Raleway', sans-serif;
+	font-size: 18px;
+	font-weight: 300;
+	border: 1px solid #000;
+	background-color: #111;
+	overflow: hidden;
+
+	-webkit-transition: border-color 5000ms,background-color 1000ms;
+	-moz-transition: border-color 5000ms,background-color 1000ms;
+	-ms-transition: border-color 5000ms,background-color 1000ms;
+	-o-transition: border-color 5000ms,background-color 1000ms;
+	transition: border-color 5000ms,background-color 1000ms;
+}
+.no-touch #algorithms div#add:hover {
+	border: 1px solid #666;
+	background-color: #000;
+
+	-webkit-transition: background-color 1000ms,border-color 1000ms;
+	-moz-transition: background-color 1000ms,border-color 1000ms;
+	-ms-transition: background-color 1000ms,border-color 1000ms;
+	-o-transition: background-color 1000ms,border-color 1000ms;
+	transition: background-color 1000ms,border-color 1000ms;
+}
+#algorithms div#add.algorithm a.plus {
+	position: relative;
+
+	display: block;
+	width: 100%;
+	height:100%;
+	min-height: inherit;
+
+	font-family: sans-serif;
+	display: block;
+	margin: 0;
+	text-align: center;
+	text-decoration: none;
+}
+
+
+
+#algorithms div#add a.plus div {
+	position: absolute;
+	width: 100%;
+	margin-top: 15%;
+}
+#algorithms.size2 div#add.algorithm a.plus div{
+	margin-top: 34%;
+}
+#algorithms.size3 div#add.algorithm a.plus div{
+	margin-top: 39%;
+}
+#algorithms div#add.algorithm a.plus span {
+	display: block;
+	margin: 0 auto;
+	width:40px;
+	height: 40px;
+	border: 3px solid #666;
+	-webkit-border-radius: 22px;
+	border-radius: 22px;
+	color:#666;
+	font-size: 20px;
+	text-align: center;
+	line-height: 40px;
+}
+.no-touch #algorithms div#add:hover a.plus span {
+	color:gold;
+	border: 3px solid gold;
+}
+#add h4 {
+	display: block;
+	visibility: hidden;
+	width: 100%;
+	font-size:1em;
+	text-align: center;
+	color:gold;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+	margin: 0;
+}
+.no-touch #algorithms div#add:hover h4 {
+	visibility: visible;
+}
+.touch #algorithms div#add h4 {
+	visibility: visible;
+	color:#999;
+}
+
+/***************** ADD **********************/
+#formContainer {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	font-size: 1.05em;
+	position: relative;
+	display: none;
+}
+#formContainer #form {
+	overflow: hidden;
+	/*height: 800px;*/
+	border: 1px solid #666;
+	-webkit-transition: height 500ms;
+	-moz-transition: height 500ms;
+	-ms-transition: height 500ms;
+	-o-transition: height 500ms;
+	transition: height 500ms;
+	padding:0px;
+}
+#formContainer #form>div {
+	margin:10px;
+	position: relative;
+}
+#formContainer.collapsed #form {
+	height: 0px;
+	border: 1px solid transparent;
+}
+#formContainer h5,
+#formContainer h4 {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
+	color:gold;
+}
+#formContainer h5 {
+	font-size: 1.2em;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #333;
+}
+#formContainer h5 span {
+	color:#999;
+	font-size: 0.8em;
+}
+#formContainer a {
+	color:#fff;
+	text-decoration: none;
+}
+.no-touch #formContainer a:hover {
+	color:gold;
+	text-decoration: none;
+}
+
+#formContainer #form a.close{
+	position: absolute;
+	top:0px;
+	right:0px;
+	text-align: right;
+	text-transform: uppercase;
+}
+
+a.generate {
+	font-family: sans-serif;
+	display: block;
+	width: 300px;
+	margin: 5px auto;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 2px;
+}
+
+#formContainer #form a.generate h4 {
+	display: block;
+	width: 100%;
+	font-size: 1em;
+	text-align: center;
+	color: #fff;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+	margin: 0;
+}
+.no-touch #formContainer #form a.generate:hover h4 {
+	color:gold;
+}
+a.generate span {
+	display: block;
+	margin: 0 auto;
+	width:40px;
+	height: 40px;
+	border: 3px solid #666;
+	-webkit-border-radius: 22px;
+	border-radius: 22px;
+	color:#666;
+	font-size: 20px;
+	text-align: center;
+	line-height: 40px;
+}
+a.generate span i {
+	
+}
+.collapsed a.generate {
+	display: none;
+}
+.no-touch a.generate:hover span {
+	color:gold;
+	border: 3px solid gold;
+}
+#formContainer ul {
+	list-style: none;
+	margin: 0 auto 30px;
+	padding: 0;
+	width: 100%;
+}
+
+#formContainer ul#algs {
+	width: 100%;
+	padding: 10px 0;
+}
+#formContainer ul#algs li {
+	float: left;
+	width: 19.8%;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 18px;
+	margin: 2px 0.1%;
+
+}
+#formContainer ul#algs li a {
+	display: block;
+	text-align:center;
+	border:2px solid #000;
+	min-height: 101px;
+	padding:5px 0;
+	font-family: 'PT Sans',sans-serif;
+	font-size: 14px;
+	color:#f0f0f0;
+}
+.no-touch #formContainer ul#algs li a:hover {
+	border:2px solid #fff;
+}
+#formContainer ul#algs li a.selected {
+	color:#fff;
+	border:2px solid #fff;
+}
+#formContainer ul#algs li a i {
+	font-style: normal;
+	text-transform: none;
+	color:#999;
+}
+#formContainer ul#algs li a span {
+	width:142px;
+	height:74px;
+	display: block;
+	margin: 0 auto;
+	background: transparent url(../img/charts.png) no-repeat;
+}
+#formContainer ul#colors li,
+#formContainer ul#items li,
+#formContainer ul#initial li {
+	float:left;
+	margin:0 10px;
+	display: block;
+	min-width:40px;
+	height: 40px;
+	line-height: 30px;
+}
+#formContainer ul#colors li a,
+#formContainer ul#items li a,
+#formContainer ul#initial li a {
+	display: block;
+	min-width:36px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	border:2px solid #000;
+	font-size: 1.2em;
+}
+.no-touch #formContainer ul#colors li a:hover,
+.no-touch #formContainer ul#items li a:hover,
+.no-touch #formContainer ul#initial li a:hover {
+	border:2px solid #fff;
+}
+#formContainer ul#colors li a.selected,
+#formContainer ul#items li a.selected,
+#formContainer ul#initial li a.selected {
+	color:#fff;
+	border:2px solid #fff;
+}
+/***************** ALGS FOR MENU *********************/
+
+#formContainer ul#algs li a.QuickSort span {
+	background-position: 0 0;
+}
+#formContainer ul#algs li a.QuickSort2 span {
+	background-position: 25% 0;
+}
+#formContainer ul#algs li a.HeapSort span {
+	background-position: 50% 0;
+}
+#formContainer ul#algs li a.MergeSort span {
+	background-position: 75% 0;
+}
+#formContainer ul#algs li a.SmoothSort span {
+	background-position: 100% 0;
+}
+#formContainer ul#algs li a.RadixSort span {
+	background-position: 0 50%;
+}
+#formContainer ul#algs li a.ShellSort span {
+	background-position: 25% 50%;
+}
+#formContainer ul#algs li a.CycleSort span {
+	background-position: 50% 50%;
+}
+#formContainer ul#algs li a.SelectionSort span {
+	background-position: 75% 50%;
+}
+#formContainer ul#algs li a.InsertionSort span {
+	background-position: 100% 50%;
+}
+#formContainer ul#algs li a.GnomeSort span {
+	background-position: 0 100%;
+}
+#formContainer ul#algs li a.CombSort span {
+	background-position: 25% 100%;
+}
+#formContainer ul#algs li a.BubbleSort span {
+	background-position: 50% 100%;
+}
+#formContainer ul#algs li a.CocktailSort span {
+	background-position: 75% 100%;
+}
+#formContainer ul#algs li a.OddEvenSort span {
+	background-position: 100% 100%;
+}
+/***************** SVG *********************/
+.algorithm svg path {
+	stroke-opacity: 0.6;
+	stroke-width: 1.5;
+	fill: none;
+	stroke: #ffffff;
+	/*shape-rendering: geometricPrecision;*/
+}
+.i50 svg path {
+	stroke-width: 1;
+}
+.i75 svg path,
+.i100 svg path {
+	stroke-width: 0.5;
+}
+
+@-moz-document url-prefix() { 
+	.algorithm svg path {
+		stroke-width: 1;
+	}
+}
+
+
+.algorithm svg .visible path {
+	stroke-opacity:0.6;
+}
+.algorithm path.highlight {
+	stroke-opacity:1;
+	stroke-width:2;
+}
+.algorithm svg circle {
+	fill:#fff;
+	fill-opacity:0.6;
+	stroke:none;
+	stroke-opacity:0;
+	stroke-width:0;
+
+	-webkit-transition: fill 0.25s linear,fill-opacity 0.25s linear,stroke-opacity 0.25s linear;
+	-moz-transition: fill 0.25s linear,fill-opacity 0.25s linear,stroke-opacity 0.25s linear;
+	-ms-transition: fill 0.25s linear,fill-opacity 0.25s linear,stroke-opacity 0.25s linear;
+	-o-transition: fill 0.25s linear,fill-opacity 0.25s linear,stroke-opacity 0.25s linear;
+	transition: fill 0.25s linear,fill-opacity 0.25s linear,stroke-opacity 0.25s linear;
+
+}
+.algorithm svg .swap circle {
+	stroke-opacity:0;
+	fill-opacity:1;
+	fill:#ff009e !important;
+}
+.algorithm svg .circle text {
+	fill:#ddd;
+	font-size: 9px;
+	font-family: Arial;
+	fill-opacity:0.5;
+	text-anchor:middle;
+}
+.algorithm svg .circle.memory circle,
+.algorithm svg .circle.memory text {
+	fill-opacity:0;
+}
+
+.i75 svg .circle text,
+.i100 svg .circle text,
+.size2 .i50 svg .circle text,
+.size3 .i50 svg .circle text {
+	display: none;
+}
+
+.algorithm svg #temp g * {
+	fill-opacity:0;
+}
+.algorithm svg #temp g.visible * {
+	fill-opacity:0.6;
+}
+.algorithm svg #temp circle {
+	stroke-opacity:0;
+	fill:#000000;
+	stroke-width:2;
+	stroke:#ffffff;	
+}
+.algorithm svg #temp g.visible circle {
+	stroke-opacity:0.5;
+}
+.algorithm svg #temp text {
+	fill:#ddd;
+	font-size: 9px;
+	font-family: Arial;
+	text-anchor:middle;
+}
+.algorithm svg #indicators.hidden {
+	fill-opacity:0;
+}
+
+.algorithm svg #indicators g.indicator path,
+.algorithm svg #indicators.hidden g.indicator.visible path {
+	fill-opacity:0;
+}
+
+.algorithm svg #indicators g.indicator.visible path {
+	fill-opacity:1;
+}
+
+.hidden #circles,
+.hidden #indicators,
+.hidden #temp {
+	display: none;
+}
+
+.fixed #active_margin {
+	height: 65px;
+}
+#active_margin {
+	height: 0px;
+	background-color: transparent;
+	display: none;
+}
+#controls {
+	position: relative;
+	width:100%;
+	left:0;
+	right: 0;
+	bottom: 0;
+	height:60px;
+	background-color:rgba(0,0,0,0.8);
+	color:#fff;
+	text-align: center;
+	display: none !important;
+}
+.fixed #controls {
+	position: fixed;
+}
+#controls > div {
+	margin: 5px auto;
+}
+#controls span {
+	min-width: 30px;
+	/*display: block;
+	float: left;*/
+	text-align: center;
+}
+#controls ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	
+	display: block;
+	height: 50px;
+}
+#controls ul#c1 {
+	width: 200px;
+}
+.touch #controls ul#c1 {
+	width: 250px;
+}
+#controls ul#c2 {
+	width: 80px;
+}
+#controls ul li {
+	float: left;
+}
+#controls ul li a {
+	color:#666;
+	text-decoration: none;
+	float: left;
+	display: block;
+	width:40px;
+	font-size: 22px;
+}
+.touch #controls ul li a {
+	width:50px;
+}
+#controls li.c2 a {
+	font-size: 18px;
+}
+.no-touch #controls ul li a:hover {
+	color:gold;
+}
+#controls ul#c1 li a i {
+	line-height: 36px;
+}
+#controls ul li a#play i.icon-play,
+#controls ul li a#play.play i.icon-pause {
+	display: inline-block;
+	font-size: 36px;
+	margin-left: -5px;
+}
+#controls ul li a#play.play i.icon-play,
+#controls ul li a#play i.icon-pause {
+	display: none;
+}
+#controls ul li a#play.play span.play,
+#controls ul li a#play span.pause{
+	display: none;
+}
+#controls ul li a#play span.play,
+#controls ul li a#play.play span.pause {
+	display: block;
+}
+#controls ul li a span {
+	display: block;
+	font-size: 9px;
+	text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+	color:#666;
+	visibility: hidden;
+}
+.touch #controls ul li a span {
+	visibility: visible;
+}
+.no-touch #controls ul li a:hover span {
+	color:gold;
+	visibility: visible;
+}
+#controls ul.colors {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#controls ul.colors li {
+	display: block;
+	width: 10px;
+	height: 10px;
+	margin:0 2px;
+	background-color: #fff;
+}
+
+#header ul#layout {
+	display: none;
+	list-style: none;
+	float: right;
+	margin: 8px 20px 0 0;
+	padding: 0;
+}
+#header ul#layout li {
+	float: left;
+	display: block;
+	width: 23px;
+	height: 24px;
+	text-align: center;
+}
+#header ul#layout a {
+	display: block;
+	color:#fff;
+	text-decoration: none;
+	/*float: left;
+	display: block;*/
+}
+#header ul#layout li.title {
+	width: auto;
+	font-size: 12px;
+	line-height: 18px;
+	color:#666;
+	margin-right: 5px;
+}
+#header ul#layout a.size {
+	display: block;
+	width: 23px;
+	height: 23px;
+}
+#header ul#layout a.size span {
+	width: 11px;
+	height: 11px;
+	display: block;
+	background:transparent url(../img/layout.png) top left no-repeat;
+	overflow: hidden;
+	margin:5px auto 0;
+	text-indent: -2000px;
+}
+#header ul#layout li a.size[rev='1'] span {
+}
+#header ul#layout li a.size[rev='2'] span {
+	background-position: -13px top;
+}
+#header ul#layout li a.size[rev='3'] span {
+	background-position: -26px top;	
+}
+.no-touch #header ul#layout li a.size[rev='1']:hover span,
+#header ul#layout li a.size[rev='1'].selected span {
+	background-position: 0 bottom;
+}
+.no-touch #header ul#layout li a.size[rev='2']:hover span,
+#header ul#layout li a.size[rev='2'].selected span {
+	background-position: -13px bottom;
+}
+.no-touch #header ul#layout li a.size[rev='3']:hover span,
+#header ul#layout li a.size[rev='3'].selected span {
+	background-position: -26px bottom;	
+}
+.no-touch #header ul#layout a:hover {
+	color:gold;
+}
+#header ul#layout li.sep {
+	width: 0px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+#header ul#layout li.sep span{
+	border-left:1px solid #666;
+}
+#header ul#layout li a.items {
+	color:#666;
+}
+
+#header ul#layout li #social {
+	width:28px;
+	text-align: center;
+	font-size: 23px;
+	margin-top: 10px;
+	margin-left: 1px;
+	height:0;
+	overflow: hidden;
+
+	-webkit-transition: height 1000ms;
+	-moz-transition: height 1000ms;
+	-ms-transition: height 1000ms;
+	-o-transition: height 1000ms;
+	transition: height 1000ms;
+
+	background-color: #000;
+}
+#header ul#layout li #social.visible {
+	height:220px;	
+}
+#header ul#layout li #social a {
+	color: #000;
+	text-decoration: none;
+	font-size: 14px;
+	background-color: #666;
+	margin: 4px 0;
+	width: 26px;
+	height: 26px;
+	line-height: 28px;
+	-webkit-border-radius: 14px;
+	border-radius: 14px;
+	position: relative;
+}
+#header ul#layout li #social span.count {
+	color:#ccc;
+	font-size:10px;
+	display: block;
+	margin-bottom: 10px;
+	margin-top: -5px;
+}
+.no-touch #header ul#layout li #social a:hover {
+	background-color:gold;
+	color:#000;
+}
+
+.distance-chart {
+	margin-top:20px;
+}
+
+.distance-chart svg {
+
+}
+.distance-chart svg text.title {
+	fill:#666;
+	font-size:11px;
+	text-anchor:start;
+	display: block;
+}
+div.algorithm:first-child .distance-chart svg text.title,
+#algorithms.size1 div.algorithm .distance-chart svg text.title {
+	display: block;
+}
+#algorithms.size3 div.algorithm .distance-chart svg text.title {
+	display: none !important;
+}
+.distance-chart svg text.title.x {
+	text-anchor:middle;
+	font-size:10px;
+}
+.distance-chart svg .bar {
+
+}
+
+.distance-chart svg .bar rect {
+	fill:#666;
+	stroke:none;
+	shape-rendering: crispEdges;
+}
+.distance-chart svg .bar line {
+	stroke:#333;
+	stroke-width:1;
+	shape-rendering: crispEdges;
+	stroke-dasharray:1, 3;
+}
+.distance-chart.over svg .bar line {
+	stroke:none;
+}
+/*
+.distance-chart.over svg .bar.first line,
+.distance-chart.over svg .bar.last line {
+	stroke:#666;
+}*/
+.distance-chart svg .bar.highlight rect {
+	fill:#fff;
+}
+.distance-chart svg .bar.highlight line,
+.distance-chart.over svg .bar.highlight.first line ,
+.distance-chart.over svg .bar.highlight.last line {
+	stroke:#fff;
+}
+.distance-chart svg .xaxis line,
+.distance-chart svg .xaxis path {
+	stroke:#666;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+.distance-chart svg .xaxis .tick.highlight line {
+	stroke:#fff;
+}
+.distance-chart svg .xaxis text{
+	fill:#666;
+	font-size:10px;
+}
+.distance-chart svg .xaxis .tick.highlight text {
+	fill:#fff;
+}
+.distance-chart svg .xaxis .tick.highlight line {
+	stroke:#fff;
+}
+/*
+.no-touch .distance-chart svg .tick {
+	cursor: pointer;
+}
+
+.no-touch .distance-chart svg .tick rect.hover {
+	fill:#ff0000;
+	fill-opacity:0;
+}
+.no-touch .distance-chart svg .tick:hover text {
+	fill:#fff;
+}
+.no-touch .distance-chart svg .tick:hover line {
+	stroke:#fff;
+}
+*/
+.distance-chart svg .xaxis .current line {
+	stroke:#fff;
+}
+.distance-chart svg .xaxis .current text {
+	fill:#fff;
+	text-anchor:middle;
+}
+.distance-chart svg path.line {
+	stroke:#999;
+	stroke-width: 1;
+	stroke-opacity: 1;
+	fill: none;
+	fill-opacity: 0.2;
+	shape-rendering: crispEdges;
+}
+.distance-chart svg path.area {
+	stroke:none;
+	stroke-width: 0;
+	stroke-opacity: 0;
+	fill: #fff;
+	fill-opacity: 0.1;
+}
+
+.distance-chart svg .xaxis g.inversions-bar line{
+	stroke-dasharray:3, 5;
+	stroke-opacity:0.5;
+}
+.distance-chart svg .xaxis g.inversions-bar text{
+	text-anchor:end;
+}
+/***************** OVERLAY + HOWTO **********************/
+#overlay {
+	display: none;
+	width:100%;
+	height: 100%;
+	top:0;
+	left:0;
+	right: 0;
+	bottom: 0;
+	background: #000;
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+	
+
+	-webkit-transition: opacity 1000ms;
+	-moz-transition: opacity 1000ms;
+	-ms-transition: opacity 1000ms;
+	-o-transition: opacity 1000ms;
+	transition: opacity 1000ms;
+}
+
+#overlay.visible {
+	
+	opacity: 0.95;
+	z-index: 9999;
+}
+
+#howtoread  {
+	width: 631px;
+	height: 483px;
+	position: relative;
+	background: transparent url(../img/help.png) center center no-repeat;
+	margin: 0 auto;
+}
+#howtoread  span {
+	position: absolute;
+	display: block;
+	color:gold;
+	text-transform: uppercase;
+	font-size: 12px;
+	height:23px;
+	padding:0 4px;
+	line-height: 7px;
+}
+#howtoread  span.bottom {
+	line-height: 37px;
+}
+#howtoread  span.bottom.high {
+	line-height: 69px;
+	height: 39px;
+}
+#howtoread  span.right {
+	border-right:1px dotted gold;	
+}
+#howtoread  span.left {
+	border-left:1px dotted gold;	
+}
+
+#howtoread  span.right {
+
+}
+#overlay a.close{
+	font-size: 18px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+
+	position: absolute;
+	top:10px;
+	right:10px;
+	text-align: right;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+#howtoread svg#legend {
+	position: absolute;
+	right: -25px;
+	top: 226px;	
+}
+#howtoread svg circle {
+	fill:none;
+	stroke:#fff;
+	stroke-width:1;
+	stroke-opacity:1;
+}
+#howtoread svg text {
+	fill: gold;
+	font-size: 10px;
+	text-transform: uppercase;
+	text-anchor:end;
+}
+#howtoread svg line {
+	fill: none;
+	stroke:#ddd;
+	stroke-width:1;
+	shape-rendering: crispEdges;
+	stroke-dasharray:1, 3;
+}
+/***************** FOOTER **********************/
+#footer {
+	display: none;
+	font-size: 13px;
+	max-width:960px;
+	width:100%;
+	margin:0 auto;
+	position: relative;
+	color:#ddd;
+	margin-top:50px;
+}
+#footer #logo{
+	float:none;
+	margin:0 auto;
+}
+#footer #logo span {
+	font-family: inherit;
+	font-family: Arial,sans-serif;
+}
+#footer h1{
+	text-align: center;
+	font-size: 18px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+}
+#footer h1.logo {
+	margin: 0;
+	color:#fff;
+}
+#footer h1 .icon-fire-station {
+	font-size:31px;
+	color:#666;
+	text-shadow: 0px 0px 1px #555;
+}
+#footer h1 span {
+	font-family: 'PT Sans', sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	color: #ccc;
+	text-shadow:none;
+}
+#footer h1 a {
+	color: #fff;
+	text-decoration: none;
+}
+.no-touch #footer h1 a:hover {
+	color:gold;
+}
+
+#footer .social {
+	text-align: center;
+	font-size: 23px;
+	position: relative;
+	width: 132px;
+	height: 23px;
+	margin: 10px auto;
+}
+#footer .social a {
+	text-decoration: none;
+	font-size: 13px;
+	color: #000;
+	background-color: #999;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	width: 23px;
+	height: 23px;
+	line-height: 23px;
+	display: block;
+	float: left;
+	margin: 0 5px;
+}
+#footer .social a span.count {
+	color:#ccc;
+	font-size:10px;
+	display: block;
+	margin-top: -5px;
+}
+.no-touch #footer .social a:hover {
+	background-color:gold;
+}
+#footer .social a span {
+	display: block;
+	font-size: 10px;
+	font-weight: normal;
+}
+#footer #licence {
+	font-size: 11px;
+	width:280px;
+	margin: 0 auto;
+	border-top:1px solid #444;
+	text-align: center;
+	margin-top: 20px;
+	padding-top: 10px;
+}
+#footer #licence div{
+	text-align: left;
+}
+#footer #licence a {
+	color:#aaa;
+	text-decoration: none;
+}
+.no-touch #footer #licence a:hover {
+	color:gold;
+}
+#footer #licence a.cc {
+	float:left;
+	margin-right: 10px;
+}

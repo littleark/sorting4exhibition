@@ -1,0 +1,76 @@
+html,body {
+	margin:0;
+	padding:10px;
+	background: #000;
+	font-family: Arial;
+	position: relative;
+}
+#counter {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	color:#fff;
+	font-size: 20px
+}
+#traces {
+	position: absolute;
+	top:10px;
+	left:10px;
+}
+#stepper {
+	position: absolute;
+	top:300px;
+	left:10px;
+	color:#fff;
+	width: 80px;
+}
+#stepper span {
+	min-width: 30px;
+	display: block;
+	float: left;
+	text-align: center;
+}
+#stepper a {
+	color:#fff;
+	text-decoration: none;
+	float: left;
+	display: block;
+}
+#stepper a:hover {
+	color:#ffff00;
+}
+svg path {
+	stroke-opacity:0.6;
+	stroke-width:1;
+	fill:none;
+	stroke:#ffffff;
+}
+svg .visible path {
+	stroke-opacity:0.6;
+}
+path.highlight {
+	stroke-opacity:1;
+	stroke-width:2;
+}
+svg circle {
+	fill:#fff;
+	fill-opacity:0.6;
+	stroke:#ffff00;
+	stroke-opacity:0;
+	stroke-width:3;
+
+	-webkit-transition: stroke-opacity 0.25s linear;
+	-moz-transition: stroke-opacity 0.25s linear;
+	-ms-transition: stroke-opacity 0.25s linear;
+	-o-transition: stroke-opacity 0.25s linear;
+	transition: stroke-opacity 0.25s linear;
+
+}
+svg .swap circle {
+	stroke-opacity:1;
+}
+svg .circle text {
+	fill:#22abef;
+	font-size: 10px;
+	font-family: Arial;
+}

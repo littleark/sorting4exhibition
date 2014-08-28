@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Control SORTING</title>
+	<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>
+	<script>window.d3||document.write('<script src="web/js/vendors/d3/d3.min.js"><\/script>');</script>
+</head>
+<body>
+	<script>
+
+		var sortingController={};
+
+		;(function(){
+
+			
+
+		
+
+			function SortingController() {
+				
+				var socket;
+
+				function initSocket() {
+					socket = io.connect('http://localhost:8888');
+
+					socket.on("open",function(data){
+						console.log("open",data);
+						if(data.status=="connected") {
+							socket.emit("join","sorting-room");
+						}
+					});
+
+					socket.on("close",function(data){
+						console.log("close",data)
+					});
+
+					socket.on('error', function (reason){
+						console.error('Unable to connect Socket.IO', reason);
+					});
+
+					socket.on('joined',function(message){
+						console.log("joined",message);
+					})
+
+					socket.on('message',function(message){
+						console.log("message",message);
+					})
+
+					socket.on('change-chart',function(status){
+						console.log("change chart",status);
+						socket.emit("change-confirmed",status);
+					})
+
+				}
+				initSocket();
+
+			}
+
+			sortingController=new SortingController();
+
+		}());
+	</script>
+</body>
+</html>

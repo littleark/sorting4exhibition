@@ -1,0 +1,18 @@
+{
+  "name": "WebSocketServer",
+  "version": "0.0.1",
+  "description": "Server to control SORTING remotely",
+  "keywords": [
+    "sorting"
+  ],
+  "author": {
+    "name": "Carlo Zapponi",
+    "email": "me@carlo.im",
+    "url": "http://www.makinguse.com/"
+  },
+  
+  "dependencies": {
+    "express": "x",
+    "socket.io": "x"
+  }
+}
