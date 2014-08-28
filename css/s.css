@@ -183,9 +183,7 @@ h1.init div#logo span.s3 {
 #algorithms div.algorithm.right {
 	float:right;
 }
-.no-touch #algorithms div.algorithm:hover {
-	border: 1px solid #666;
-}
+
 #algorithms.size1 div.algorithm {
 	width: 948px;
 	min-height: 358px;
