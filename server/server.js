@@ -1,3 +1,4 @@
+#!/bin/env node
 var config = require("./config");
 var express = require('express');
 var fs      = require('fs');
@@ -21,11 +22,13 @@ var SortingServer = function(options) {
      */
     self.setupVariables = function() {
         //  Set the environment variables we need.
-        self.ipaddress = options.host;
-        self.port      = options.port || 8080;
+        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
         if (typeof self.ipaddress === "undefined") {
-            console.warn('No HOST ADDRESS var, using 127.0.0.1');
+            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+            //  allows us to run/test the app locally.
+            console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         };
     };
@@ -110,9 +113,9 @@ var SortingServer = function(options) {
     self.initializeServer = function() {
         self.createRoutes();
         self.app = express();
-       	self.server = require('http').Server(self.app);
+        self.server = require('http').Server(self.app);
 
-       	initializeCORS();
+        initializeCORS();
 
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
@@ -123,136 +126,69 @@ var SortingServer = function(options) {
     };
 
     function initializeCORS() {
-    	
-    	var allowCrossDomain = function(req, res, next) {
-		    res.header('Access-Control-Allow-Origin', '*');
-		    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-		    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-		    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-		    res.setHeader('Access-Control-Allow-Credentials', 'true');
+        
+        var allowCrossDomain = function(req, res, next) {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+            res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-		    // intercept OPTIONS method
-		    if ('OPTIONS' == req.method) {
-		      res.send(200);
-		    }
-		    else {
-		      next();
-		    }
-		};
+            // intercept OPTIONS method
+            if ('OPTIONS' == req.method) {
+              res.send(200);
+            }
+            else {
+              next();
+            }
+        };
 
-		self.app.use(allowCrossDomain);
-		
+        self.app.use(allowCrossDomain);
+        
     }
 
     function initializeSocket() {
-    	self.io = require('socket.io')(self.server);
-    	self.io.set('origins', '*:*');
+        self.io = require('socket.io')(self.server);
+        self.io.set('origins', '*:*');
 
 
-    	 self.io.on('connection', function(socket) {
-    	 	
-    	 	socket.emit('open', { status: 'connected' });
-			
-			socket.on('disconnect', function () {
-				console.log("user disconnected")
-			});
-		    
-		    socket.on('join', function(data) {
-				console.log("joining",data)
-				socket.join(data);
-				socket.emit('joined',data);
-				//self.io.to("sorting-room").send('someone joined sorting room');
-			});
+         self.io.on('connection', function(socket) {
+            
+            socket.emit('open', { status: 'connected' });
+            
+            socket.on('disconnect', function () {
+                console.log("user disconnected")
+            });
+            
+            socket.on('join', function(data) {
+                console.log("joining",data)
+                socket.join(data);
+                socket.emit('joined',data);
+                //self.io.to("sorting-room").send('someone joined sorting room');
+            });
 
-		    socket.on("change-chart",function(status) {
-				console.log("change chart",status)
-				self.io.to("sorting-room").emit("change-chart",status);
-			});
+            socket.on("running",function(status){
+                console.log("running",status);
+                self.io.to("control-room").emit("running",status);
+            })
 
-			socket.on("change-confirmed",function(status){
-				console.log("change-confirmed",status)
-				self.io.to("control-room").emit("change-confirmed",status);
-			})
+            socket.on("change-chart",function(status) {
+                console.log("change chart",status)
+                self.io.to("sorting-room").emit("change-chart",status);
+            });
 
-			socket.on("control-chart",function(status){
-				console.log("control-chart",status)
-				self.io.to("sorting-room").emit("control-chart",status);
-			})
+            socket.on("change-confirmed",function(status){
+                console.log("change-confirmed",status)
+                self.io.to("control-room").emit("change-confirmed",status);
+            })
 
-    	 });
+            socket.on("control-chart",function(status){
+                console.log("control-chart",status)
+                self.io.to("sorting-room").emit("control-chart",status);
+            })
 
-		//initControl();
-		//initSorting();
+         });
 
-    }
-
-
-    function initSorting() {
-
-		var room = self.io
-  					.of('/sorting-room')
-  					.on('connection', function(socket) {
-
-  						console.log("joining sorting room");
-  						socket.emit('open', { status: 'connected' });
-  						socket.on('disconnect', function () {
-							console.log("user disconnected")
-						});
-					    socket.on('join', function(data) {
-							socket.join("sorting-room");
-							socket.emit('joined', "you've joined sorting");
-							self.io.to("sorting-room").send('someone joined sorting room');
-						});
-						socket.on('left-chart', function(data) {
-							console.log("left-chart changed succesfully")
-							//socket.broadcast.to("control-room").emit('left-chart',{status:"ok",id:1});
-						});
-						socket.on('right-chart', function(data) {
-							console.log("right-chart changed succesfully")
-							//socket.broadcast.to("control-room").emit('right-chart',{status:"ok",id:2});
-						});
-					});
-    }
-
-    function initControl() {
-    	
-    	var room = self.io
-  					.of('/control-room')
-  					.on('connection', function(socket) {
-  						console.log("joining control room");
-  						socket.emit('open', { status: 'connected' });
-  						socket.on('disconnect', function () {
-							console.log("user disconnected")
-						});
-					    socket.on('join', function(data) {
-							socket.join("control-room");
-							socket.emit('joined', "you've joined control");
-							socket.broadcast.to("control-room").send('someone joined control room');
-						});
-					    
-					    socket.on("left-chart",function(status) {
-							console.log("change left-chart",status)
-							//self.io.sockets.broadcast.to("sorting-room").emit('right-chart',{status:"ok",id:1});
-							//self.io.sockets.in('sorting-room').send('someone joined control room');;//.emit('left-chart',{status:"ok",id:1});
-							//socket.broadcast.to("sorting-room").send('MERDA');
-							//self.io.sockets.in("control-room").send('MERDA');
-							console.log(self.io.to("sorting-room"))
-							//for(var id in self.io.sockets.adapter.rooms) {
-							self.io.to("sorting-room").send('MERDA');
-							socket.broadcast.to("sorting-room").send('someone joined sorting room');
-							//}
-
-							//self.io.sockets.in('control-room').emit('left-chart',{status:"ok",id:1});
-						})
-
-						socket.on("right-chart",function(status) {
-							console.log("change right-chart",status)
-							//socket.broadcast.to("sorting-room").emit('right-chart',{status:"ok",id:2});
-						})
-
-					});
-
-		
     }
 
     /**
@@ -273,10 +209,18 @@ var SortingServer = function(options) {
      */
     self.start = function() {
         //  Start the app on the specific interface (and port).
-
-		self.server.listen(self.port);
-		console.log('%s: Node server started on %s:%d ...',
+        console.log("listening at ",self.port,self.ipaddress)
+        self.server.listen(self.port, self.ipaddress, function() {
+            console.log('%s: Node server started on %s:%s ...',
+                        Date(Date.now() ), self.port, self.ipaddress);
+        });
+        /*self.server.listen(self.port);
+        console.log('%s: Node server started on %s:%d ...',
+                        Date(Date.now() ), self.ipaddress, self.port);*/
+        /*self.app.listen(self.port, self.ipaddress, function() {
+            console.log('%s: Node server started on %s:%d ...',
                         Date(Date.now() ), self.ipaddress, self.port);
+        });*/
     };
 
 };   /*  Sample Application.  */
@@ -287,8 +231,8 @@ var SortingServer = function(options) {
  *  main():  Main code.
  */
 var sorting = new SortingServer({
-	host:config.host,
-	port:config.port
+    host:config.host,
+    port:config.port
 });
 sorting.initialize();
 sorting.start();
