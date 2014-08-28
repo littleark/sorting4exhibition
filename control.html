@@ -53,19 +53,21 @@
 					name:"Quick Sort",
 					file:"QuickSort3",
 					O:"O(n log n)",
-					active:true
+					active:true,
+					position:"left"
 				},
 				{
 					name:"Quick Sort 3-way",
 					file:"QuickSort4",
 					O:"O(n log n)",
-					active:true
+					active:false
 				},
 				{
 					name:"Heap Sort",
 					file:"HeapSort",
 					O:"O(n log n)",
-					active:false
+					active:true,
+					position:"right"
 				},
 				{
 					name:"Smooth Sort",
@@ -320,16 +322,27 @@
 					.enter()
 					.append("li")
 						.append("a")
+						.classed("selected",function(d){
+							return d.active && d.position==position;
+						})
 						.attr("href","#")
 							.html(function(d){
 								return "<span>"+d.name+"</span>,&nbsp;"+d.O
 							})
 							.on("mousedown",function(d){
 								d3.event.preventDefault();
-								sortingController.setStatus(false);
-								d3.select("#controls #play").classed("play",sortingController.getStatus());
-								sortingController.setCurrent(d.file,position);
-								sortingController.changeChart(position)
+
+								if(!d3.select(this).classed("selected")) {
+									sortingController.setStatus(false);
+									d3.select("#controls #play").classed("play",sortingController.getStatus());
+									sortingController.setCurrent(d.file,position);
+									sortingController.changeChart(position);
+
+									d3.selectAll("#algorithms #"+position+" li a.selected").classed("selected",false);
+									d3.select(this).classed("selected",true);
+								}
+								
+
 							});
 			})
 			
