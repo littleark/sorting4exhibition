@@ -561,7 +561,6 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 						d3.select("#algorithms")
 							.selectAll("div.algorithm."+(status.position?"right":"left"))
 							.each(function(d){
-								alert(d.name)
 								sorting.removeAlgorithm(d.name,function(){
 									sorting.addAlgorithm(
 										status.algorithm,
