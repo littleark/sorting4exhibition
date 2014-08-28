@@ -329,6 +329,9 @@
 							.html(function(d){
 								return "<span>"+d.name+"</span>,&nbsp;"+d.O
 							})
+							.on("click",function(){
+								d3.event.preventDefault();
+							})
 							.on("mousedown",function(d){
 								d3.event.preventDefault();
 
