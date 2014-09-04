@@ -827,6 +827,7 @@ define(["d3","./support","./DistanceChart"],function(d3,support,DistanceChart) {
 								self.stepNext(animate);	
 							}
 						} else {
+							//console.log(current_step,d)
 							//do nothing ciao
 						}
 					})

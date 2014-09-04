@@ -59,9 +59,9 @@ a {
 	width:100%;
 	left:0;
 	right: 0;
-	bottom: 0;
-	height:60px;
-	background-color:rgba(0,0,0,0.8);
+	bottom: 0px;
+	
+	background-color:rgba(0,0,0,0.9);
 	color:#fff;
 	text-align: center;
 }
@@ -69,7 +69,7 @@ a {
 	position: fixed;
 }
 #controls > div {
-	margin: 5px auto;
+	margin: 0px auto;
 }
 #controls span {
 	min-width: 30px;
@@ -83,13 +83,14 @@ a {
 	margin: 0 auto;
 	
 	display: block;
-	height: 50px;
+	overflow: hidden;
+	padding-bottom: 5px;
 }
 #controls ul#c1 {
-	width: 200px;
+	width: 400px;
 }
 .touch #controls ul#c1 {
-	width: 250px;
+	width: 400px;
 }
 #controls ul#c2 {
 	width: 80px;
@@ -102,20 +103,27 @@ a {
 	text-decoration: none;
 	float: left;
 	display: block;
-	width:40px;
-	font-size: 22px;
+	width:80px;
+	font-size: 40px;
 }
 .touch #controls ul li a {
-	width:50px;
+	width:60px;
+}
+#controls ul li a#play {
+	
+}
+#controls ul li a#back,
+#controls ul li a#forward {
+	font-size:30px;
 }
 #controls li.c2 a {
-	font-size: 18px;
+	font-size: 35px;
 }
 .no-touch #controls ul li a:hover {
 	color:gold;
 }
 #controls ul#c1 li a i {
-	line-height: 36px;
+	line-height: 55px;
 }
 #controls ul li a#play i.icon-play,
 #controls ul li a#play.play i.icon-pause {
@@ -142,7 +150,7 @@ a {
 	width: 100%;
 	text-transform: uppercase;
 	color:#666;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 .touch #controls ul li a span {
 	visibility: visible;
@@ -167,41 +175,145 @@ a {
 #algorithms {
 	width:100%;
 	overflow: hidden;
+	height:100%;
+}
+#algorithms #headers {
+	width: 100%;
+	height:50px;
+	overflow: hidden;
+}
+#algorithms #headers h1 {
+	text-align: center;
+	width:48%;
+	margin:0 1%;
+	float: left;
+	display: block;
+	margin: 0;
+	padding: 0;
+	line-height: 48px;
+	border-bottom:1px dotted #555;
+
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	text-decoration: none;
+	text-transform: uppercase;
+	float:left;
+}
+#algorithms #headers h1:last-child {
+	float: right;
 }
 #algorithms #left {
 	width:48%;
 	float: left;
+	overflow: auto;
+	height:400px;
 }
 #algorithms #right {
 	width:48%;
 	float:right;
+	overflow: auto;
+	height:400px;
 }
 #algorithms ul {
-	margin:0;
+	margin:0 auto;
 	padding: 0;
 	list-style: none;
+	width: 320px;
 }
 #algorithms ul li {
-	margin:1px 1px;
+	margin:5px 0px;
 	padding: 0;
 	color:#fff;
-	height:25px;
-	line-height: 25px;
-	border-bottom:1px solid #222;
-	padding-left:20px;
+	width: 315px;
 }
 #algorithms ul li a {
 	display: block;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	text-decoration: none;
+	text-transform: uppercase;
+	overflow: hidden;
+	padding: 5px;
+	border:5px solid transparent;
 }
 #algorithms ul li a:hover {
 	color:gold;
 }
-#algorithms ul li a span {
-	text-transform: uppercase;
-}
+
 #algorithms ul li a.selected {
 	color:gold;
+	border:5px solid #fff;
+}
+#algorithms ul li a i {
+	font-style: normal;
+	text-transform: none;
+	color: #999;
+}
+#algorithms ul li a div.info {
+	float:left;
+	padding-top: 16px;
+}
+#algorithms ul li a span {
+	float:right;
+	width:142px;
+	height:74px;
+	display: block;
+	margin: 0 auto;
+	background: transparent url(../img/charts.png) no-repeat;
+}
+/***************** ALGS FOR MENU *********************/
+
+#algorithms ul li a.QuickSort span {
+	background-position: 0 0;
+}
+#algorithms ul li a.QuickSort2 span {
+	background-position: 25% 0;
+}
+#algorithms ul li a.HeapSort span {
+	background-position: 50% 0;
+}
+#algorithms ul li a.MergeSort span {
+	background-position: 75% 0;
+}
+#algorithms ul li a.SmoothSort span {
+	background-position: 100% 0;
+}
+#algorithms ul li a.RadixSort span {
+	background-position: 0 50%;
+}
+#algorithms ul li a.ShellSortShell span {
+	background-position: 25% 50%;
+}
+#algorithms ul li a.ShellSortCiura span {
+	background-position: 25% 50%;
+}
+#algorithms ul li a.ShellSortKnuth2 span {
+	background-position: 25% 50%;
+}
+#algorithms ul li a.ShellSortTokuda span {
+	background-position: 25% 50%;
+}
+#algorithms ul li a.CycleSort span {
+	background-position: 50% 50%;
+}
+#algorithms ul li a.SelectionSort span {
+	background-position: 75% 50%;
+}
+#algorithms ul li a.InsertionSort span {
+	background-position: 100% 50%;
+}
+#algorithms ul li a.GnomeSort span {
+	background-position: 0 100%;
+}
+#algorithms ul li a.CombSort span {
+	background-position: 25% 100%;
+}
+#algorithms ul li a.BubbleSort span {
+	background-position: 50% 100%;
+}
+#algorithms ul li a.CocktailSort span {
+	background-position: 75% 100%;
+}
+#algorithms ul li a.OddEvenSort span {
+	background-position: 100% 100%;
 }

@@ -29,6 +29,7 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 		var running=0;
 
 		var evt = new CustomEvent("paused");
+		var allSortedEvent = new CustomEvent("all-sorted");
 
 		var functions={}
 
@@ -123,10 +124,12 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 				new_algorithms
 					.append("h2")
 					.html(function(d){
+						console.log("!!!!!!!",algorithm,d)
 						return algorithm.name || d.name;
 					})
 					.append("span")
-						.html(data.length+" "+support.initial_conditions[initial_condition]+" elements")
+						.html(algorithm.complexity)
+						//.html(data.length+" "+support.initial_conditions[initial_condition]+" elements")
 
 				var close=new_algorithms
 						.append("a")
@@ -209,6 +212,7 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 									
 									running=0;									
 									document.dispatchEvent(evt);
+									document.dispatchEvent(allSortedEvent);
 								}
 							},
 							callback:function(){
@@ -343,11 +347,11 @@ define(["d3","AlgorithmView3","support"],function(d3,AlgorithmView,support) {
 				a.stepPrev();
 			})
 		}
-		this.goTo=function(p){
+		this.goTo=function(p,callback){
 			STEP=p;
 			d3.values(algoviz).forEach(function(a){
 				//console.log("setting position for",a.getName(),p)
-				a.goToPerc(p);
+				a.goToPerc(p,callback);
 			})
 		}
 		this.toggleItems=function() {

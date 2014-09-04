@@ -2,8 +2,8 @@ define(["../support"], function(support) {
 	swap=support.swap;
 	addStep=support.addStep;
 	return {
-		"name":"Shell Sort B (Knuth, 1973)",
-		"complexity":"Knuth, 1973",
+		"name":"Shell Sort (Knuth, 1973)",
+		"complexity":"&Theta;(N<sup>3/2</sup>)",
 		"wiki":"http://en.wikipedia.org/wiki/Shellsort",
 	    "code":function() {
 			var steps=[];

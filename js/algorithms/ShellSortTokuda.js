@@ -2,8 +2,8 @@ define(["../support"], function(support) {
 	swap=support.swap;
 	addStep=support.addStep;
 	return {
-		"name":"Shell Sort (Shell, 1959)",
-		"complexity":"&Theta;(N&sup2;) [when N=2p]",
+		"name":"Shell Sort (Tokuda, 1992)",
+		"complexity":"?",
 		"wiki":"http://en.wikipedia.org/wiki/Shellsort",
 	    "code":function() {
 			var steps=[];
@@ -11,26 +11,10 @@ define(["../support"], function(support) {
 			var index=[];
 			var cmp=0;
 
-			
 
 			function shellsort(a) {
 				var n=a.length;
-		        
-				var gaps=(function(a){
-					var n=a.length,
-						k=1,
-						g=null,
-						gaps=[];
-					
-					while((g=Math.floor(n/Math.pow(2,k)))>=1) {
-					    gaps.push(g);
-					    k++;
-					}
-
-					return gaps;
-				}(a));
-				
-
+		        var gaps=[1182,525,233,103,46,20,9,4,1];
 		        //# Start with the largest gap and work down to a gap of 1 
 				for(var g=0;g<gaps.length;g++) {
 					var gap=gaps[g];
@@ -43,7 +27,6 @@ define(["../support"], function(support) {
 				        var temp = a[i];
 				        // shift earlier gap-sorted elements up until the correct location for a[i] is found
 				        for (var j = i; j >= gap && a[j - gap].value > temp.value; j -= gap) {
-
 				        	index.push([i,j,j-gap]);
 				        	steps.push([]);
 			            	comparisons.push({

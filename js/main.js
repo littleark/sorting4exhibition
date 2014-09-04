@@ -87,6 +87,8 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 	
 	//console.log(data)
 
+	var sortingController;
+
 	window.sorting=new Sorting({
 		container:"#algorithms"
 	});
@@ -126,6 +128,12 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 			name:"Shell Sort",
 			file:"ShellSortKnuth2",
 			O:"Knuth, 1973",
+			active:false
+		},
+		{
+			name:"Shell Sort",
+			file:"ShellSortTokuda",
+			O:"Tokuda, 1992",
 			active:false
 		},
 		{
@@ -398,6 +406,12 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 		var running=sorting.getStatus();
 		d3.select("#controls #play").classed("play",running);
 		sorting.pause();
+
+		sortingController.sendPause();
+
+	});
+	document.addEventListener('all-sorted', function start(e) {
+		sortingController.sendEnd();
 	});
 	d3.select("#controls #back")
 		.on("click",function(d,i){
@@ -519,10 +533,22 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 	*/
 	function SortingController() {
 				
+		var self=this;
 		var socket;
-
+		this.sendPlay=function() {
+			console.log("EMITTING PLAY FROM SORTING VIZ")
+			socket.emit("sorting-chart",{action:"play"});
+		}
+		this.sendPause=function() {
+			console.log("EMITTING PAUSE FROM SORTING VIZ")
+			socket.emit("sorting-chart",{action:"pause"});
+		}
+		this.sendEnd=function() {
+			console.log("EMITTING END FROM SORTING VIZ")
+			socket.emit("sorting-chart",{action:"end"});
+		}
 		function initSocket() {
-			//socket = io.connect('http://localhost:8888');
+			//socket = io.connect('http://localhost:8080');
 			socket = io.connect('http://sortingcontrol-littleark.rhcloud.com:8000');
 
 			socket.on("open",function(data){
@@ -558,10 +584,14 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 				switch(status.action) {
 					case "change":
 						console.log(status);
+						
 						sorting.pause();
+
 						var running=sorting.getStatus();
 						d3.select("#controls #play").classed("play",!running);
 						
+
+
 						d3.select("#algorithms")
 							.selectAll("div.algorithm."+(status.position?"right":"left"))
 							.each(function(d){
@@ -571,11 +601,19 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 										data[options.initial_condition][options.items],
 										options.color,
 										options.initial_condition,
-										status.position
+										status.position,
+										function() {
+											sorting.pause(null,function(){
+												sorting.goTo(0,function(){
+													sorting.start();
+													self.sendPlay();
+												});
+											});
+											//sorting.start();
+										}
 									)
 								});
-								
-								
+
 							})
 
 					break;
