@@ -3,7 +3,7 @@ define(["../support"], function(support) {
 	addStep=support.addStep;
 	return {
 		"name":"Combsort",
-		"complexity":"",
+		"complexity":"&Omega;(n&sup2;/2<sup>p</sup> [p: number of increments]",
 		"wiki":"http://en.wikipedia.org/wiki/Comb_sort",
 	    "code":function() {
 			var steps=[];
