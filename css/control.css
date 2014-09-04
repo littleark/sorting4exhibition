@@ -218,13 +218,13 @@ a {
 	margin:0 auto;
 	padding: 0;
 	list-style: none;
-	width: 320px;
+	width: 360px;
 }
 #algorithms ul li {
 	margin:5px 0px;
 	padding: 0;
 	color:#fff;
-	width: 315px;
+	width: 355px;
 }
 #algorithms ul li a {
 	display: block;
@@ -236,9 +236,7 @@ a {
 	padding: 5px;
 	border:5px solid transparent;
 }
-#algorithms ul li a:hover {
-	color:gold;
-}
+
 
 #algorithms ul li a.selected {
 	color:gold;
