@@ -52,6 +52,7 @@
 
 		;(function(){
 
+			var is_touch_device = 'ontouchstart' in document.documentElement;
 			
 			var algorithms=[
 				{
@@ -419,11 +420,13 @@
 							.html(function(d){
 								return "<div class=\"info\">"+d.name+"<br/><i>"+d.O+"</i></div><span></span>";
 							})
-							.on("click",function(){
+							/*.on("click",function(){
 								d3.event.preventDefault();
-							})
-							.on("mousedown",function(d){
+							})*/
+							//.on(is_touch_device?"touchend":"mousedown",function(d){
+							.on("click",function(d){
 								d3.event.preventDefault();
+								d3.event.stopPropagation();
 
 								if(!d3.select(this).classed("selected")) {
 									sortingController.setStatus(false);
