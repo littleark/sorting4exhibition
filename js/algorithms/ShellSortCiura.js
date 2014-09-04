@@ -3,7 +3,7 @@ define(["../support"], function(support) {
 	addStep=support.addStep;
 	return {
 		"name":"Shell Sort (Ciura, 2001)",
-		"complexity":"?",
+		"complexity":"&nbsp;",
 		"wiki":"http://en.wikipedia.org/wiki/Shellsort",
 	    "code":function() {
 			var steps=[];
