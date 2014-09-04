@@ -218,13 +218,13 @@ a {
 	margin:0 auto;
 	padding: 0;
 	list-style: none;
-	width: 360px;
+	width: 330px;
 }
 #algorithms ul li {
 	margin:5px 0px;
 	padding: 0;
 	color:#fff;
-	width: 355px;
+	width: 325px;
 }
 #algorithms ul li a {
 	display: block;
