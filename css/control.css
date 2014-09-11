@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'PT Sans';
+  src: url('../font/webfonts/PTS55F-webfont.eot');
+  src: url('../font/webfonts/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../font/webfonts/PTS55F-webfont.woff') format('woff'),
+       url('../font/webfonts/PTS55F-webfont.ttf') format('truetype'),
+       url('../font/webfonts/PTS55F-webfont.svg#titillium_webregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../font/webfonts/raleway-light-webfont.eot');
+    src: url('../font/webfonts/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/webfonts/raleway-light-webfont.woff2') format('woff2'),
+         url('../font/webfonts/raleway-light-webfont.woff') format('woff'),
+         url('../font/webfonts/raleway-light-webfont.ttf') format('truetype'),
+         url('../font/webfonts/raleway-light-webfont.svg#ralewaylight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 *:focus {
     outline: 0;
 }
