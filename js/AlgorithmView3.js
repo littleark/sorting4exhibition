@@ -7,7 +7,7 @@ define(["d3","./support","./DistanceChart"],function(d3,support,DistanceChart) {
 		var OWIDTH=options.width,
 			OHEIGHT=options.height,
 			WIDTH=Math.floor(options.width/options.size_factor),
-			HEIGHT=Math.floor(options.width/options.size_factor)*0.45;
+			HEIGHT=Math.floor(options.width/options.size_factor)*0.5;
 
 		var name=options.name;
 
