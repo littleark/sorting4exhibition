@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RESET</title>
+	<!--<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="css/reset.css">
+	<script src="js/vendors/d3.min.js"></script>
+	<script src="js/vendors/socket.io.js"></script>
+</head>
+<body>
+		<a href="#" id="reset">RESET</a>
+		<span id="status">STATUS: starting</span>
+		<script>
+
+			var c_status=d3.select("#status");
+
+			//var socket = io.connect('http://localhost:8080');
+			var socket = io.connect('http://sortingcontrol-littleark.rhcloud.com:8000');
+
+			socket.on("open",function(data){
+				console.log("open",data);
+				c_status.text("STATUS: connection opened");
+				if(data.status=="connected") {
+					socket.emit("join","reset-room");
+					c_status.text("STATUS: joining");
+				}
+			});
+
+			socket.on("close",function(data){
+				console.log("close",data)
+				c_status.text("STATUS: connection closed");
+			});
+
+			socket.on('error', function (reason){
+				console.error('Unable to connect Socket.IO', reason);
+				c_status.text("STATUS: connection error");
+			});
+
+			socket.on('joined',function(message){
+				console.log("joined",message);
+				c_status.text("STATUS: ready to reset");
+			})
+
+			socket.on('reset',function(message){
+				console.log("reset",message);
+				c_status.text("STATUS: resetted, ready for more");
+			})
+
+			d3.select("#reset")
+				.on("click",function(){
+					d3.event.preventDefault();
+					c_status.text("STATUS: resetting...");
+					socket.emit("reset");
+				})
+
+
+		</script>
+</body>
+</html>

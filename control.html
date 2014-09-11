@@ -5,9 +5,10 @@
 	<title>Control SORTING</title>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400' rel='stylesheet' type='text/css'>
-	<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>
-	<script>window.d3||document.write('<script src="web/js/vendors/d3/d3.min.js"><\/script>');</script>
+	<!--<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>-->
+	<script src="js/vendors/socket.io.js"></script>
+	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>-->
+	<script src="js/vendors/d3.min.js"></script>
 	<link rel="stylesheet" href="css/control.css">
 	<link rel="stylesheet" href="css/afun.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
@@ -171,6 +172,7 @@
 			function SortingController() {
 				
 				var socket;
+				this.active=true;
 				var running=0;
 				var self=this;
 
@@ -193,12 +195,12 @@
 
 
 				this.getStatus=function() {
-					console.log("getStatus",running);
+					//console.log("getStatus",running);
 					return running;
 				}
 				this.setStatus=function(status) {
 					running=status;
-					console.log("setStatus",running);
+					//console.log("setStatus",running);
 				}
 				function initSocket() {
 					//socket = io.connect('http://localhost:8080');
@@ -221,6 +223,13 @@
 
 					socket.on('joined',function(message){
 						console.log("joined",message);
+
+						selectChart(message.algorithms[0],"left");
+						selectChart(message.algorithms[1],"right");
+
+						self.setStatus(message.playing);
+						
+						d3.select("#controls #play").classed("play",sortingController.getStatus());
 					})
 
 					socket.on('message',function(message){
@@ -239,21 +248,36 @@
 
 								self.setStatus(false);
 								d3.select("#controls #play").classed("play",self.getStatus());
-
+								self.active=true;
+								console.log("SET ACTIVE TO",self.active)
+								console.log("pause "+self.active)
 							break;
 							case 'end':
 								console.log("END","sorting-chart event",status)
 								startIdleMode();
+								self.active=true;
+								console.log("SET ACTIVE TO",self.active)
+								console.log("end "+self.active)
 							break;
 							case 'play':
-								console.log("END","sorting-chart event",status)
+								console.log("PLAY","sorting-chart event",status)
 								clearIdleTimeout();
 								self.setStatus(true);
 								d3.select("#controls #play").classed("play",self.getStatus());
+								self.active=true;
+								console.log("SET ACTIVE TO",self.active)
+								console.log("play "+self.active)
+							break;
+							case 'reset':
+
 							break;
 							default:
 								console.log("sorting-chart event",status)
 						};
+					});
+
+					socket.on("reset",function(){
+						location.reload();
 					})
 				}
 				initSocket();
@@ -264,22 +288,21 @@
 				}
 				this.changeChart=function(position) {
 					startIdleMode();
+					self.active=false;
+					console.log("SET ACTIVE TO",self.active)
+					console.log("change "+self.active)
 					socket.emit("control-chart",{action:"change",position:(position=="left")?0:1,algorithm:current[position]});
-				}
-				this.leftChart=function() {
-					startIdleMode();
-					socket.emit("control-chart",{action:"change",position:0,algorithm:current.left});
-				}
-				this.rightChart=function() {
-					startIdleMode();
-					socket.emit("control-chart",{action:"change",position:1,algorithm:current.right});
 				}
 				this.playChart=function() {
 					startIdleMode();
+					self.active=false;
+					console.log("SET ACTIVE TO",self.active)
 					socket.emit("control-chart",{action:"play"});
 				}
 				this.pauseChart=function() {
 					startIdleMode();
+					self.active=false;
+					console.log("SET ACTIVE TO",self.active)
 					socket.emit("control-chart",{action:"pause"});
 				}
 				this.forwardChart=function() {
@@ -307,6 +330,7 @@
 				}
 
 				function startIdleMode() {
+					
 					clearIdleTimeout();
 					idleTO=setTimeout(function(){
 						self.startPlaying();
@@ -342,6 +366,11 @@
 				.on("click",function(d,i){
 					d3.event.preventDefault();
 
+					if(!sortingController.active) {
+						console.log("not active")
+						return;
+					}
+
 					sortingController.backwardChart();
 					sortingController.setStatus(false);
 					d3.select("#controls #play").classed("play",sortingController.getStatus());
@@ -352,6 +381,11 @@
 				.on("click",function(d,i){
 					d3.event.preventDefault();
 
+					if(!sortingController.active) {
+						console.log("not active")
+						return;
+					}
+
 					sortingController.forwardChart();
 					//var running=sorting.getStatus();
 					sortingController.setStatus(false);
@@ -361,6 +395,12 @@
 			d3.select("#controls #play")
 				.on("click",function(d,i){
 					d3.event.preventDefault();
+
+					if(!sortingController.active) {
+						console.log("not active")
+						return;
+					}
+
 					var running=sortingController.getStatus();
 					
 					if(!running) {
@@ -382,6 +422,11 @@
 				.on("click",function(d,i){
 					d3.event.preventDefault();
 
+					if(!sortingController.active) {
+						console.log("not active")
+						return;
+					}
+
 					sortingController.fastbackChart();
 					//var running=sorting.getStatus();
 					sortingController.setStatus(false);
@@ -394,6 +439,11 @@
 			d3.select("#controls #fastforward")
 				.on("click",function(d,i){
 					d3.event.preventDefault();
+
+					if(!sortingController.active) {
+						console.log("not active")
+						return;
+					}
 
 					sortingController.fastforwardChart();
 					//var running=sorting.getStatus();
@@ -427,20 +477,49 @@
 							.on("click",function(d){
 								d3.event.preventDefault();
 								d3.event.stopPropagation();
+								
+								if(!sortingController.active) {
+									return;
+								}
 
-								if(!d3.select(this).classed("selected")) {
+
+
+								if(!d3.select(this).classed("selected") && !d3.select(this).classed("unselectable")) {
+									
+									//also in changeChart, just to enforce it.
+									self.active=false;
+
 									sortingController.setStatus(false);
 									d3.select("#controls #play").classed("play",sortingController.getStatus());
-									sortingController.setCurrent(d.file,position);
+
+									selectChart(d.file,position)
 									sortingController.changeChart(position);
 
-									d3.selectAll("#algorithms #"+position+" li a.selected").classed("selected",false);
-									d3.select(this).classed("selected",true);
+
 								}
 								
 
 							});
-			})
+			});
+
+			function selectChart(chart,position) {
+
+				sortingController.setCurrent(chart,position);
+
+				d3.selectAll("#algorithms #"+position+" li a.selected").classed("selected",false);
+				d3.selectAll("#algorithms #"+position+" li a")
+					.filter(function(d){
+						return d.file==chart;
+					})
+					.classed("selected",true);
+
+				d3.selectAll("#algorithms #"+(position=="left"?"right":"left")+" li a")
+					.classed("unselectable",false)
+					.filter(function(d){
+						return d.file==chart;
+					})
+					.classed("unselectable",true);
+			}
 			
 
 

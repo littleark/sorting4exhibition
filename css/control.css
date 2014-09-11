@@ -235,12 +235,25 @@ a {
 	overflow: hidden;
 	padding: 5px;
 	border:5px solid transparent;
+
+	-webkit-transition: opacity 1s ease-out, border-color 1s;
+	-moz-transition: opacity 1s ease-out, border-color 1s;
+	-ms-transition: opacity 1s ease-out, border-color 1s;
+	-o-transition: opacity 1s ease-out, border-color 1s;
+	transition: opacity 1s ease-out, border-color 1s;
+
+
+
 }
 
 
 #algorithms ul li a.selected {
 	color:gold;
 	border:5px solid #fff;
+}
+#algorithms ul li a.unselectable {
+	opacity: 0.2;
+	cursor: default;
 }
 #algorithms ul li a i {
 	font-style: normal;
@@ -315,3 +328,4 @@ a {
 #algorithms ul li a.OddEvenSort span {
 	background-position: 100% 100%;
 }
+

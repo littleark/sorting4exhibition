@@ -1,0 +1,81 @@
+*:focus {
+    outline: 0;
+}
+
+::-webkit-scrollbar-thumb:vertical { width:10px; height:10px; background-color: #666; }
+::-webkit-scrollbar { width:10px; height:5px; background: #000; margin-right:5px; }
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+html,body {
+	margin:0;
+	padding:0px;
+	background: #000;
+	color:#fff;
+	font-family: sans-serif;
+	position: relative;
+}
+html {
+	/*height: 100%;*/
+	overflow: hidden;
+}
+body {
+	min-height: 100%;
+	
+	font-family: 'Raleway', sans-serif;
+
+	scrollbar-base-color: #000;
+	scrollbar-base-color: #666;
+	scrollbar-3dlight-color: #000;
+	scrollbar-highlight-color: #000;
+	scrollbar-track-color: #000;
+	scrollbar-arrow-color: #666;
+	scrollbar-shadow-color: #000;
+	scrollbar-dark-shadow-color: #000;
+}
+
+a#reset {
+	color:#fff;
+	width:300px;
+	height:300px;
+	border:1px solid #ddd;
+	line-height: 300px;
+	margin:20px auto;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 30px;
+}
+a#reset:hover {
+	color:gold;
+}
+
+span#status {
+	color:#fff;
+	width:300px;
+	height:20px;
+	line-height: 20px;
+	margin:20px auto;
+	display: block;
+	text-align: left;
+	font-size: 13px;
+	text-transform: uppercase;
+}

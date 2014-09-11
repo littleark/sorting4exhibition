@@ -568,6 +568,14 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 
 			socket.on('joined',function(message){
 				console.log("joined",message);
+				changeAlgorithm({
+					position:0,
+					algorithm:message.algorithms[0]
+				});
+				changeAlgorithm({
+					position:1,
+					algorithm:message.algorithms[1]
+				});
 			})
 
 			socket.on('message',function(message){
@@ -579,42 +587,46 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 				socket.emit("change-confirmed",status);
 			})
 
+			function changeAlgorithm(status) {
+				sorting.pause();
+
+				var running=sorting.getStatus();
+				d3.select("#controls #play").classed("play",!running);
+				
+
+
+				d3.select("#algorithms")
+					.selectAll("div.algorithm."+(status.position?"right":"left"))
+					.each(function(d){
+						sorting.removeAlgorithm(d.name,function(){
+							sorting.addAlgorithm(
+								status.algorithm,
+								data[options.initial_condition][options.items],
+								options.color,
+								options.initial_condition,
+								status.position,
+								function() {
+									sorting.pause(null,function(){
+										sorting.goTo(0,function(){
+											sorting.start();
+											self.sendPlay();
+										});
+									});
+									//sorting.start();
+								}
+							)
+						});
+
+					})
+			}
+
 			socket.on("control-chart",function(status){
 
 				switch(status.action) {
 					case "change":
 						console.log(status);
 						
-						sorting.pause();
-
-						var running=sorting.getStatus();
-						d3.select("#controls #play").classed("play",!running);
-						
-
-
-						d3.select("#algorithms")
-							.selectAll("div.algorithm."+(status.position?"right":"left"))
-							.each(function(d){
-								sorting.removeAlgorithm(d.name,function(){
-									sorting.addAlgorithm(
-										status.algorithm,
-										data[options.initial_condition][options.items],
-										options.color,
-										options.initial_condition,
-										status.position,
-										function() {
-											sorting.pause(null,function(){
-												sorting.goTo(0,function(){
-													sorting.start();
-													self.sendPlay();
-												});
-											});
-											//sorting.start();
-										}
-									)
-								});
-
-							})
+						changeAlgorithm(status);
 
 					break;
 					case "play":
@@ -628,8 +640,11 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 						if(!running) {
 							sorting.pause();
 							sorting.start();
+							self.sendPlay();
 						} else {
 							sorting.pause();
+							alert("###")
+							self.sendPause();
 						}
 						
 						
@@ -639,6 +654,7 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 
 						d3.select("#controls #play").classed("play",running);
 						sorting.pause();
+						self.sendPause();
 					break;
 					case "forward":
 						sorting.nextStep();
@@ -671,6 +687,10 @@ require(["d3","Sorting","support","io"], function(d3,Sorting,support,io) {
 						console.log(status);
 				}
 
+			});
+
+			socket.on("reset",function(){
+				location.reload();
 			})
 
 		}
