@@ -483,14 +483,15 @@
 								
 
 
-								/*if(!sortingController.active) {
+								if(!sortingController.active) {
 									return;
-								}*/
-
+								}
+								/*
 								if(sortingController.activeTimeOut) {
 									clearTimeout(sortingController.activeTimeOut);
 									sortingController.activeTimeOut=null;
 								}
+								*/
 
 
 
@@ -504,9 +505,9 @@
 
 									selectChart(d.file,position)
 
-									sortingController.activeTimeOut=setTimeout(function(){
+									//sortingController.activeTimeOut=setTimeout(function(){
 										sortingController.changeChart(position);	
-									},1000);
+									//},1000);
 									
 
 
